@@ -410,6 +410,11 @@ static void tpm_ltpms_worker_thread(gpointer data, gpointer user_data)
         }
         /* fall through */
     case TPM_BACKEND_CMD_INIT:
+        //added by 6u6a
+        if(TPMLIB_ChooseTPMVersion(TPMLIB_TPM_VERSION_2) == TPM_SUCCESS){
+            fprintf(stdout, "choose tpm2.0\n");
+        }
+        //end of add
         res = TPMLIB_MainInit();
         if (res == TPM_SUCCESS) {
             qemu_mutex_lock(&tpm_ltpms->tpm_initialized_mutex);
@@ -461,7 +466,7 @@ static TPM_RESULT tpm_ltpms_nvram_init(void)
     }
 
     tpm_ltpms_get_nvram_offsets(tpm_ltpms);
-
+    
     rc = tpm_ltpms_load_tpm_state_from_nvram(tpm_ltpms);
     if (rc) {
         qerror_report(ERROR_CLASS_GENERIC_ERROR, "TPM NVRAM load state failed");
