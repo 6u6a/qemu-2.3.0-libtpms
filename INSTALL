@@ -1,0 +1,4 @@
+1. compile:
+    ./configure --enable-debug --enable-tpm --enable-kvm --enable-vnc --target-list=x86_64-softmmu --disable-werror --extra-ldflags=" -ltpms -lssl -lcrypto -L/usr/local/ssl/lib/"
+    make
+
