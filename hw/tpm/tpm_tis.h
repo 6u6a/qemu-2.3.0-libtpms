@@ -20,6 +20,7 @@
 #include "hw/isa/isa.h"
 #include "hw/acpi/tpm.h"
 #include "qemu-common.h"
+#include "sysemu/tpm_backend.h"
 
 #define TPM_TIS_NUM_LOCALITIES      5     /* per spec */
 #define TPM_TIS_LOCALITY_SHIFT      12

@@ -101,16 +101,16 @@ static uint32_t tpm_passthrough_get_size_from_buffer(const uint8_t *buf)
 /*
  * Write an error message in the given output buffer.
  */
-static void tpm_write_fatal_error_response(uint8_t *out, uint32_t out_len)
-{
-    if (out_len >= sizeof(struct tpm_resp_hdr)) {
-        struct tpm_resp_hdr *resp = (struct tpm_resp_hdr *)out;
-
-        resp->tag = cpu_to_be16(TPM_TAG_RSP_COMMAND);
-        resp->len = cpu_to_be32(sizeof(struct tpm_resp_hdr));
-        resp->errcode = cpu_to_be32(TPM_FAIL);
-    }
-}
+//static void tpm_write_fatal_error_response(uint8_t *out, uint32_t out_len)
+//{
+//    if (out_len >= sizeof(struct tpm_resp_hdr)) {
+//        struct tpm_resp_hdr *resp = (struct tpm_resp_hdr *)out;
+//
+//        resp->tag = cpu_to_be16(TPM_TAG_RSP_COMMAND);
+//        resp->len = cpu_to_be32(sizeof(struct tpm_resp_hdr));
+//        resp->errcode = cpu_to_be32(TPM_FAIL);
+//    }
+//}
 
 static bool tpm_passthrough_is_selftest(const uint8_t *in, uint32_t in_len)
 {

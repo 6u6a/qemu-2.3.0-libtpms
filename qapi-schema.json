@@ -2974,10 +2974,11 @@
 # An enumeration of TPM types
 #
 # @passthrough: TPM passthrough type
+# @libtpms: TPM libtpms type
 #
 # Since: 1.5
 ##
-{ 'enum': 'TpmType', 'data': [ 'passthrough' ] }
+{ 'enum': 'TpmType', 'data': [ 'passthrough', 'libtpms' ] }
 
 ##
 # @query-tpm-types:
@@ -3006,16 +3007,29 @@
                                              '*cancel-path' : 'str'} }
 
 ##
+# @TPMLibtpmsOptions:
+#
+# Information about the TPM libtpms type
+#
+# @nvram: string showing the NVRAM drive id
+#
+# Since: 1.8
+##
+{ 'type': 'TPMLibtpmsOptions', 'data': { 'nvram' : 'str' } }
+
+##
 # @TpmTypeOptions:
 #
 # A union referencing different TPM backend types' configuration options
 #
 # @passthrough: The configuration options for the TPM passthrough type
+# @libtpms: The configuration options for the TPM libtpms type
 #
 # Since: 1.5
 ##
 { 'union': 'TpmTypeOptions',
-   'data': { 'passthrough' : 'TPMPassthroughOptions' } }
+   'data': { 'passthrough' : 'TPMPassthroughOptions',
+             'libtpms' : 'TPMLibtpmsOptions' } }
 
 ##
 # @TpmInfo:

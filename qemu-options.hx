@@ -183,8 +183,8 @@ Set default value of @var{driver}'s property @var{prop} to @var{value}, e.g.:
 qemu-system-i386 -global ide-drive.physical_block_size=4096 -drive file=file,if=ide,index=0,media=disk
 @end example
 
-In particular, you can use this to set driver properties for devices which are 
-created automatically by the machine model. To create a device which is not 
+In particular, you can use this to set driver properties for devices which are
+created automatically by the machine model. To create a device which is not
 created automatically and set properties on it, use -@option{device}.
 ETEXI
 
@@ -2539,7 +2539,9 @@ DEF("tpmdev", HAS_ARG, QEMU_OPTION_tpmdev, \
     "-tpmdev passthrough,id=id[,path=path][,cancel-path=path]\n"
     "                use path to provide path to a character device; default is /dev/tpm0\n"
     "                use cancel-path to provide path to TPM's cancel sysfs entry; if\n"
-    "                not provided it will be searched for in /sys/class/misc/tpm?/device\n",
+    "                not provided it will be searched for in /sys/class/misc/tpm?/device\n"
+    "-tpmdev libtpms,id=id,nvram=drive-id\n"
+    "                use nvram to provide the NVRAM drive id\n",
     QEMU_ARCH_ALL)
 STEXI
 
@@ -2549,7 +2551,8 @@ The general form of a TPM device option is:
 @item -tpmdev @var{backend} ,id=@var{id} [,@var{options}]
 @findex -tpmdev
 Backend type must be:
-@option{passthrough}.
+@option{passthrough}, or
+@option{libtpms}.
 
 The specific backend type will determine the applicable options.
 The @code{-tpmdev} option creates the TPM backend and requires a
@@ -2598,6 +2601,30 @@ To create a passthrough TPM use the following two options:
 @end example
 Note that the @code{-tpmdev} id is @code{tpm0} and is referenced by
 @code{tpmdev=tpm0} in the device option.
+
+@item -tpmdev libtpms, id=@var{id}, nvram=@var{drive-id}
+
+Enable access to the libtpms-based emulated TPM.
+
+@option{nvram} specifies the drive id of the NVRAM drive.
+
+Some notes about using the libtpms-based emulated TPM:
+
+To create a libtpms-based TPM, use the following options:
+@example
+-drive file=<path to image file>,if=none,id=tpm-nvram \
+-tpmdev libtpms,id=tpm0,nvram=tpm-nvram \
+-device tpm-tis,tpmdev=tpm0
+@end example
+
+The @code{drive} option provides the path to the image file where the
+TPM's persistent NVRAM data will be stored. Using the @code{qemu-img} tool,
+such an image can be created with a size of 500K.
+
+Note that the @code{-tpmdev} id is @code{tpm0} and is referenced by
+@code{tpmdev=tpm0} in the @code{-device} option. Similarly, the @code{-drive}
+id @code{tpm-nvram} is referenced by @code{nvram=tpm-nvram} in the
+@code{-tpmdev} option.
 
 @end table
 

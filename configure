@@ -3003,6 +3003,25 @@ if test "$targetos" = Linux && test "$cpu" = i386 -o "$cpu" = x86_64; then
 else
   tpm_passthrough=no
 fi
+##########################################
+# TPM libtpms probe
+
+tpm_libtpms=no
+if test "$tpm" != "no" ; then
+cat > $TMPC <<EOF
+#include <libtpms/tpm_library.h>
+#include <libtpms/tpm_error.h>
+#include <libtpms/tpm_memory.h>
+#include <libtpms/tpm_nvfilename.h>
+#include <libtpms/tpm_tis.h>
+int main(int argc, char **argv) { TPMLIB_GetVersion(); return 0; }
+EOF
+  libtpms_libs=`$pkg_config libtpms --libs 2> /dev/null`
+  if compile_prog "$libtpms_libs" ; then
+    tpm_libtpms=$tpm
+    libs_softmmu="$libs_softmmu $libtpms_libs"
+  fi
+fi
 
 ##########################################
 # attr probe
@@ -4434,6 +4453,7 @@ echo "gcov enabled      $gcov"
 echo "TPM support       $tpm"
 echo "libssh2 support   $libssh2"
 echo "TPM passthrough   $tpm_passthrough"
+echo "TPM libtpms       $tpm_libtpms"
 echo "QOM debugging     $qom_cast_debug"
 echo "vhdx              $vhdx"
 echo "Quorum            $quorum"
@@ -4919,6 +4939,9 @@ if test "$tpm" = "yes"; then
   echo 'CONFIG_TPM=$(CONFIG_SOFTMMU)' >> $config_host_mak
   if test "$tpm_passthrough" = "yes"; then
     echo "CONFIG_TPM_PASSTHROUGH=y" >> $config_host_mak
+  fi
+  if test "$tpm_libtpms" = "yes"; then
+    echo "CONFIG_TPM_LIBTPMS=y" >> $config_host_mak
   fi
 fi
 

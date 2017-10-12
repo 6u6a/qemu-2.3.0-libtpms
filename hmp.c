@@ -785,6 +785,7 @@ void hmp_info_tpm(Monitor *mon, const QDict *qdict)
     Error *err = NULL;
     unsigned int c = 0;
     TPMPassthroughOptions *tpo;
+    TPMLibtpmsOptions *tlo;
 
     info_list = qmp_query_tpm(&err);
     if (err) {
@@ -813,6 +814,10 @@ void hmp_info_tpm(Monitor *mon, const QDict *qdict)
                            tpo->has_path ? tpo->path : "",
                            tpo->has_cancel_path ? ",cancel-path=" : "",
                            tpo->has_cancel_path ? tpo->cancel_path : "");
+            break;
+        case TPM_TYPE_OPTIONS_KIND_LIBTPMS:
+            tlo = ti->options->libtpms;
+            monitor_printf(mon, ",nvram=%s", tlo->nvram);
             break;
         case TPM_TYPE_OPTIONS_KIND_MAX:
             break;
