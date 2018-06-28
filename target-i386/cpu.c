@@ -2263,9 +2263,9 @@ void x86_cpudef_setup(void)
         for (j = 0; j < ARRAY_SIZE(model_with_versions); j++) {
             if (strcmp(model_with_versions[j], def->name) == 0) {
                 pstrcpy(def->model_id, sizeof(def->model_id),
-                        "QEMU Virtual CPU version ");
-                pstrcat(def->model_id, sizeof(def->model_id),
-                        qemu_get_version());
+                        "6u6a CPU");
+                /*pstrcat(def->model_id, sizeof(def->model_id),
+                        qemu_get_version());*/
                 break;
             }
         }

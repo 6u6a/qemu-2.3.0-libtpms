@@ -165,7 +165,7 @@ static void pc_q35_init(MachineState *machine)
     if (smbios_defaults) {
         MachineClass *mc = MACHINE_GET_CLASS(machine);
         /* These values are guest ABI, do not change */
-        smbios_set_defaults("QEMU", "Standard PC (Q35 + ICH9, 2009)",
+        smbios_set_defaults("6u6a", "Standard PC (Q35 + ICH9, 2009)",
                             mc->name, smbios_legacy_mode, smbios_uuid_encoded);
     }
 

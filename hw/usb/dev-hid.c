@@ -63,10 +63,10 @@ enum {
 };
 
 static const USBDescStrings desc_strings = {
-    [STR_MANUFACTURER]     = "QEMU",
-    [STR_PRODUCT_MOUSE]    = "QEMU USB Mouse",
-    [STR_PRODUCT_TABLET]   = "QEMU USB Tablet",
-    [STR_PRODUCT_KEYBOARD] = "QEMU USB Keyboard",
+    [STR_MANUFACTURER]     = "6u6a",
+    [STR_PRODUCT_MOUSE]    = "6u6a USB Mouse",
+    [STR_PRODUCT_TABLET]   = "6u6a USB Tablet",
+    [STR_PRODUCT_KEYBOARD] = "6u6a USB Keyboard",
     [STR_SERIALNUMBER]     = "42", /* == remote wakeup works */
     [STR_CONFIG_MOUSE]     = "HID Mouse",
     [STR_CONFIG_TABLET]    = "HID Tablet",
@@ -798,7 +798,7 @@ static void usb_tablet_class_initfn(ObjectClass *klass, void *data)
 
     usb_hid_class_initfn(klass, data);
     uc->realize        = usb_tablet_realize;
-    uc->product_desc   = "QEMU USB Tablet";
+    uc->product_desc   = "6u6a USB Tablet";
     dc->vmsd = &vmstate_usb_ptr;
     dc->props = usb_tablet_properties;
     set_bit(DEVICE_CATEGORY_INPUT, dc->categories);
@@ -823,7 +823,7 @@ static void usb_mouse_class_initfn(ObjectClass *klass, void *data)
 
     usb_hid_class_initfn(klass, data);
     uc->realize        = usb_mouse_realize;
-    uc->product_desc   = "QEMU USB Mouse";
+    uc->product_desc   = "6u6a USB Mouse";
     dc->vmsd = &vmstate_usb_ptr;
     dc->props = usb_mouse_properties;
     set_bit(DEVICE_CATEGORY_INPUT, dc->categories);
@@ -849,7 +849,7 @@ static void usb_keyboard_class_initfn(ObjectClass *klass, void *data)
 
     usb_hid_class_initfn(klass, data);
     uc->realize        = usb_keyboard_realize;
-    uc->product_desc   = "QEMU USB Keyboard";
+    uc->product_desc   = "6u6a USB Keyboard";
     dc->vmsd = &vmstate_usb_kbd;
     dc->props = usb_keyboard_properties;
     set_bit(DEVICE_CATEGORY_INPUT, dc->categories);
